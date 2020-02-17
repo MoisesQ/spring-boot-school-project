@@ -2,14 +2,14 @@ package com.projects.springboot.app.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.projects.springboot.app.config.exception.BadRequestException;
 import com.projects.springboot.app.config.exception.NotFoundException;
 
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionConfig {
 
 	@ExceptionHandler(NotFoundException.class)

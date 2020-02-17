@@ -46,6 +46,17 @@ public class Student implements Serializable {
 	@Column(name = "other_student_details")
 	private String otherStudentDetails;
 
+	public Student(Long studentId, String gender, String firstName, String middleName, String lastName,
+			String otherStudentDetails) {
+		super();
+		this.studentId = studentId;
+		this.gender = gender;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.otherStudentDetails = otherStudentDetails;
+	}
+
 	public Long getStudentId() {
 		return studentId;
 	}
@@ -102,6 +113,13 @@ public class Student implements Serializable {
 		this.otherStudentDetails = otherStudentDetails;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 }

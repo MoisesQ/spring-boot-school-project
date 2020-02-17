@@ -15,67 +15,48 @@ public class StudentService {
 	@Autowired
 	StudentRepository studentRepository;
 
-	public final Student create(final Student student) {
+	public Student create(Student student) {
 		Student st = studentRepository.save(student);
 		return st;
 
 	}
 
-	public final List<Student> findAll() {
+	public List<Student> findAll() {
 		List<Student> students = studentRepository.findAll();
 		return students;
 	}
 
-	public final Student findbyId(final Long id) {
+	public Student findbyId(Long id) {
 		if (!studentRepository.existsById(id)) {
 			throw new NotFoundException("Not found student with id: " + id);
+		} else {
+			Student st = studentRepository.getOne(id);
+			return st;
 		}
 
-		Student st = studentRepository.getOne(id);
-		return st;
 	}
 
-	public final Student update(final Long id, final Student student) {
+	public Student update(Long id, Student student) {
 
 		if (!studentRepository.existsById(id)) {
 			throw new NotFoundException("Not found student with id: " + id);
+		} else {
+
+			student.setStudentId(id);
+
+			Student st = studentRepository.save(student);
+
+			return st;
 		}
 
-		Student st = studentRepository.getOne(id);
-
-		if (student.getGender() != null) {
-			st.setGender(student.getGender());
-		}
-
-		if (student.getFirstName() != null) {
-			st.setFirstName(student.getFirstName());
-		}
-		if (student.getMiddleName() != null) {
-			st.setMiddleName(student.getMiddleName());
-		}
-
-		if (student.getLastName() != null) {
-			st.setLastName(student.getLastName());
-		}
-
-		if (student.getDateOfBirth() != null) {
-			st.setDateOfBirth(student.getDateOfBirth());
-		}
-
-		if (student.getOtherStudentDetails() != null) {
-			st.setOtherStudentDetails(student.getOtherStudentDetails());
-		}
-
-		studentRepository.save(st);
-
-		return st;
 	}
 
-	public final void delete(final Long id) {
+	public void delete(Long id) {
 		if (!studentRepository.existsById(id)) {
 			throw new NotFoundException("Not found student with id: " + id);
+		} else {
+			studentRepository.deleteById(id);
 		}
-		studentRepository.deleteById(id);
 	}
 
 }
