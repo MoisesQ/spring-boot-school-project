@@ -40,48 +40,36 @@ public class StudentTest {
 	private Student stTest = new Student(1L, "M", "Alejandro", "Mateo", "Gonzales", "Student");
 
 	@Test
-	public void AllIsOkTest() throws Exception {
-
+	public void AllStudentsIsOkTest() throws Exception {
 		List<Student> students = Arrays.asList(stTest);
-
 		when(studentService.findAll()).thenReturn(students);
 		mockTest.perform(get("/api/students/")).andExpect(status().isOk());
-
 	}
 
 	@Test
-	public void CreateIsOkTest() throws Exception {
-
+	public void CreateStudentIsOkTest() throws Exception {
 		Student student = stTest;
-
 		when(studentService.create(student)).thenReturn(student);
 		mockTest.perform(post("/api/students/").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(student))).andExpect(status().isCreated());
 	}
 
 	@Test
-	public void FindOneIsOkTest() throws Exception {
-		
-		mockTest.perform(get("/api/students/{id}", 1L)).andExpect(status().isOk());
-		
+	public void FindOneStudentIsOkTest() throws Exception {
+		mockTest.perform(get("/api/students/{id}", 1L)).andExpect(status().isOk());	
 	}
 
 	@Test
-	public void UpdateIsOkTest() throws Exception {
-
+	public void UpdateStudentIsOkTest() throws Exception {
 		Student student = new Student(1L, "M", "Andrés", "Mateo", "Sarmiento", "Student");
-
 		when(studentService.update(1L, student)).thenReturn(student);
 		mockTest.perform(patch("/api/students/{id}", 1L).contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(student))).andExpect(status().isOk());
-
 	}
 
 	@Test
-	public void DeleteIsOkTest() throws Exception {
-
+	public void DeleteStudentIsOkTest() throws Exception {
 		mockTest.perform(delete("/api/students/{id}", 1L)).andExpect(status().isNoContent());
-
 	}
 
 }

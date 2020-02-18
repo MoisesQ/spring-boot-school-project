@@ -3,7 +3,6 @@ package com.projects.springboot.app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,21 +10,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "students")
+@Table(name = "parents")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Student implements Serializable {
+public class Parent implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "student_id")
-	private Long studentId;
+	@Column(name = "parent_id")
+	private Long parentId;
 
 	@NotEmpty
 	private String gender;
@@ -42,38 +41,34 @@ public class Student implements Serializable {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@NotNull
-	@Column(name = "date_of_birth")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dateOfBirth;
+	@Column(name = "other_parent_details")
+	private String otherParentDetails;
 
-	@Column(name = "other_student_details")
-	private String otherStudentDetails;
-	
-	@ManyToMany(mappedBy = "students")
-	private List<Parent> parents;
-	
-	public Student() {
-		parents = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name = "student_parents", joinColumns = @JoinColumn(columnDefinition = "student_id"), inverseJoinColumns = @JoinColumn(columnDefinition = "parent_id"))
+	private List<Student> students;
+
+	public Parent() {
+		students = new ArrayList<>();
 	};
 
-	public Student(Long studentId, String gender, String firstName, String middleName, String lastName,
-			String otherStudentDetails) {
+	public Parent(Long parentId, String gender, String firstName, String middleName, String lastName,
+			String otherParentDetails) {
 		super();
-		this.studentId = studentId;
+		this.parentId = parentId;
 		this.gender = gender;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
-		this.otherStudentDetails = otherStudentDetails;
+		this.otherParentDetails = otherParentDetails;
 	}
 
-	public Long getStudentId() {
-		return studentId;
+	public Long getParentId() {
+		return parentId;
 	}
 
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 
 	public String getGender() {
@@ -108,20 +103,12 @@ public class Student implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+	public String getOtherParentDetails() {
+		return otherParentDetails;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public String getOtherStudentDetails() {
-		return otherStudentDetails;
-	}
-
-	public void setOtherStudentDetails(String otherStudentDetails) {
-		this.otherStudentDetails = otherStudentDetails;
+	public void setOtherParentDetails(String otherParentDetails) {
+		this.otherParentDetails = otherParentDetails;
 	}
 
 	public static long getSerialversionuid() {

@@ -18,7 +18,6 @@ public class StudentService {
 	public Student create(Student student) {
 		Student st = studentRepository.save(student);
 		return st;
-
 	}
 
 	public List<Student> findAll() {
@@ -37,18 +36,13 @@ public class StudentService {
 	}
 
 	public Student update(Long id, Student student) {
-
 		if (!studentRepository.existsById(id)) {
 			throw new NotFoundException("Not found student with id: " + id);
 		} else {
-
 			student.setStudentId(id);
-
 			Student st = studentRepository.save(student);
-
 			return st;
 		}
-
 	}
 
 	public void delete(Long id) {

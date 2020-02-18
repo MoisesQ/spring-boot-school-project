@@ -1,6 +1,5 @@
 package com.projects.springboot.app.config.exception;
 
-@SuppressWarnings("serial")
 public class NotFoundException extends RuntimeException {
 
 	public NotFoundException() {
@@ -11,4 +10,8 @@ public class NotFoundException extends RuntimeException {
 		super("Not found: " + message);
 	}
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 }

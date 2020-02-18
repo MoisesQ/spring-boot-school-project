@@ -24,9 +24,7 @@ public class StudentController {
 
 	@PostMapping("/api/students")
 	public ResponseEntity<Student> postStudent(@RequestBody Student student) {
-
 		return ResponseEntity.status(HttpStatus.CREATED).body(studentService.create(student));
-
 	}
 
 	@GetMapping("/api/students")
@@ -42,12 +40,11 @@ public class StudentController {
 	@PatchMapping("/api/students/{studentId}")
 
 	public ResponseEntity<Student> patchStudent(@PathVariable Long studentId, @RequestBody Student student) {
-
 		return ResponseEntity.status(HttpStatus.OK).body(studentService.update(studentId, student));
 	}
 
 	@DeleteMapping("/api/students/{studentId}")
-	public ResponseEntity<Void> deleteTask(@PathVariable Long studentId) {
+	public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
 		studentService.delete(studentId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
